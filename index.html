@@ -4,9 +4,37 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+          theme: {
+            extend: {
+              colors: {
+                clifford: '#da373d',
+              }
+            }
+          }
+        }
+      </script>
+
+    <style type="text/tailwindcss">
+        @layer utilities {
+          .content-auto {
+            content-visibility: auto;
+          }
+        }
+      </style>
     <title>Document</title>
 </head>
-<body>
-     
+<body class="h-screen">
+     <div class="welcome flex justify-center items-center h-full">
+        <div>
+            <figure></figure>
+            <span>GREEDY</span>
+            <span>PIG</span>
+        </div>
+     </div>
 </body>
 </html>
