@@ -1,40 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
 
-    <script>
-        tailwind.config = {
-          theme: {
-            extend: {
-              colors: {
-                clifford: '#da373d',
-              }
-            }
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+
+          colors: {
+            clifford: '#da373d',
+          },
+          fontFamily: {
+            'myFont': 'Raleway'
           }
         }
-      </script>
+      }
+    }
+  </script>
+  <style>
 
-    <style type="text/tailwindcss">
-        @layer utilities {
-          .content-auto {
-            content-visibility: auto;
+    @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap');
+  </style>
+  <style type="text/tailwindcss">
+    @layer utilities {
+          .welcome {
+            @apply h-full;
           }
         }
       </style>
-    <title>Document</title>
+  <title>Document</title>
 </head>
-<body class="h-screen">
-     <div class="welcome flex justify-center items-center h-full">
-        <div>
-            <figure></figure>
-            <span>GREEDY</span>
-            <span>PIG</span>
-        </div>
-     </div>
+
+<body class="h-screen font-myFont">
+  <div class="welcome ">
+  <div class="flex flex-col justify-center items-center h-full bg-[#839D9A] gap-6">
+    <div class="font-extrabold text-[50px] flex flex-col justify-center items-center">
+      <figure>
+        <img src="./pig_image-removebg-preview 1.png" alt="pig-image" width="300" >
+      </figure>
+      <div class="flex gap-4">
+        <span class="text-[#F9F7E8]">GREEDY</span>
+        <span class="text-[#EDA6A0]">PIG</span>
+      </div>
+    </div>
+    
+     <button class="bg-[#EDA6A0] text-[#F9F7E8] font-bold px-4 py-2 rounded-lg animate-bounce hover:bg-[#F9F7E8] hover:text-[#EDA6A0]">
+      Set Up Game
+     </button>
+    
+    <div class="text-[#F9F7E8] text-center">
+      <div>Developed by Nwachukwu</div>
+      <div>Designed by Tomi</div>
+    </div>
+  </div>
+  </div>
 </body>
+
 </html>
