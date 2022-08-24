@@ -25,16 +25,7 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
-    ::-webkit-scrollbar {
-  width: 10px;
-}
-::-webkit-scrollbar-thumb {
-  background: #F9F7E8; 
-  border-radius: 10px;
-}
-::-webkit-scrollbar-track {
-  background-color:#839D9A; 
-}
+
 
   </style>
   <style type="text/tailwindcss">
@@ -42,6 +33,19 @@
           .welcome {
             @apply h-full;
           }
+          
+    ::-webkit-scrollbar {
+  width: 10px;
+    }
+          ::-webkit-scrollbar-thumb {
+  background: #F9F7E8; 
+  @apply rounded-full;
+}
+
+          ::-webkit-scrollbar-track {
+  background-color:#839D9A; 
+  @apply rounded-full m-[2px];
+}
 
           .player_card{
             @apply h-[220px] bg-white rounded-lg overflow-hidden grid grid-rows-[50px_1fr_50px];
@@ -68,7 +72,7 @@
     <div class="flex flex-col justify-center items-center h-full bg-[#839D9A] gap-6">
       <div class="font-extrabold text-[50px] flex flex-col justify-center items-center">
         <figure>
-          <img src="./images/avatar_3.png" alt="pig-image" width="300">
+          <img src="./images/avatar_1.png" alt="pig-image" width="300">
         </figure>
         <div class="flex gap-4">
           <span class="text-[#F9F7E8]">GREEDY</span>
@@ -84,7 +88,7 @@
 
       <div class="text-[#F9F7E8] text-center">
         <div>Developed by Nwachukwu</div>
-        <div>Designed by Tomi</div>
+        <div>Designed by T.O.R.E</div>
       </div>
     </div>
   </div>
@@ -98,7 +102,7 @@
           </span>
            
           <figure>
-            <img src="./images/avatar_3.png" alt="pig-image" width="75">
+            <img src="./images/avatar_1.png" alt="pig-image" width="75">
           </figure>
         </div>
         <button class="text-[#EDA6A0] font-semibold hover:text-[#F9F7E8]">How to play.</button>
@@ -108,12 +112,13 @@
           <div class="flex flex-col gap-6 ">
           <div class="flex flex-col gap-2 ">
             <p class="text-white font-semibold">Game Limit:</p>
-            <input class="p-2 rounded outline-none" type="text" placeholder="Eg. 100">
+            <input class="p-2 rounded outline-none" type="text" placeholder="Eg. 100" id="gameLimit">
+            <p class="text-[#EDA6A0] hidden" id="ErrorInputLimit">Expected numbers above 10</p>
           </div>
           <div class="flex flex-col gap-2 ">
-            <p class="text-white font-semibold">Number of Players:</p>
+            <p class="text-white font-semibold">Players:</p>
             <input class="p-2 rounded outline-none " type="text"placeholder="Eg. 5" id="numberOfPlayers">
-            <p class="text-[#EDA6A0] hidden" id="ErrorInput">Expected Numbers between 2-10</p>
+            <p class="text-[#EDA6A0] hidden" id="ErrorInputName">Expected numbers between 2-10</p>
           </div>
           </div>
           <button
@@ -125,20 +130,37 @@
 
 
         <!-- Avatar Section bg-black-->
-        <div class="grid grid-cols-1 md:items-start gap-4  md:justify-items-end  md:grid-cols-2 lg:grid-cols-4 md: max-h-[460px] overflow-auto" id="avatar_section">
+        <div class="relative">
+          <p class="text-[#F9F7E8] bg-[#EDA6A0] p-2 rounded sticky  left-0 -top-0 hidden" id="ErrorInputLimit">A player does not have a name</p>
+        <div class="grid grid-cols-1 md:items-start gap-8 p-8 justify-between  md:grid-cols-2 lg:grid-cols-4 md: max-h-[460px] overflow-auto border-[1px] border-slate-50/50 rounded-lg relative" id="avatar_section">
           <!-- Auto Generated -->
+         
+            <div class="animate-pulse flex space-x-4 col-span-full">
+              <div class=" text-[#F9F7E8]  font-bold text-[20px] text-center">We are waiting for you...
+            </div>
+          </div>
+      
         </div>
+      </div>
+        
       </div>
       <footer class="flex justify-center items-center ">
         <button
-          class="bg-[#EDA6A0] text-[#F9F7E8] font-bold px-20 py-4 rounded-lg animate-bounce hover:bg-[#F9F7E8] hover:text-[#EDA6A0]"
+          class="bg-[#EDA6A0] text-[#F9F7E8] font-bold px-20 py-4 rounded-lg  hover:bg-[#F9F7E8] hover:text-[#EDA6A0]"
           id="play_game">
           PLAY
         </button>
       </footer>
-
-
     </div>
+  </div>
+
+  <!-- Main Game section -->
+  <div class="main_game hidden h-full">
+    <div class="h-full grid grid-cols-[300px_1fr_300px] ">
+    <aside class="bg-black h-full"></aside>
+    <div>hi</div>
+    <aside class="bg-black h-full"></aside>
+  </div>
   </div>
   <script src="./code.js"></script>
 </body>
