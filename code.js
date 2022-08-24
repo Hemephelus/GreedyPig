@@ -7,30 +7,35 @@ playGame.onclick = goToMainGame
 
 // Used in page 1 (Welcome page)
 function goToSetupPage() {
-  const welcomeList = document.querySelector(".welcome").classList;
-  const setupList = document.querySelector(".set_up_page").classList;
-  welcomeList.add("hidden");
-  setupList.remove("hidden");
+  changePage(".welcome",".set_up_page")
+}
+
+function changePage(currentPage,nextPage) {
+  const currentPageClass = document.querySelector(`${currentPage}`).classList;
+  const nextPageClass = document.querySelector(`${nextPage}`).classList;
+  currentPageClass.add("hidden");
+  nextPageClass.remove("hidden");
 }
 
 
 // Used in page 2 (set-up-page)
 function generatePlayers() {
-  let gameLimit = renderInputError('gameLimit','ErrorInputLimit',11,Infinity,false)
-  if (gameLimit === null)return
+  let gameLimit = renderInputError('#gameLimit', '#ErrorInputLimit', 11, Infinity, false,document)
+  if (gameLimit === null) return
 
-  let numberOfPlayers = renderInputError('numberOfPlayers','ErrorInputName',2,10,false)
-  if (numberOfPlayers === null)return
-  
+  let numberOfPlayers = renderInputError('#numberOfPlayers', '#ErrorInputName', 2, 10, false,document)
+  if (numberOfPlayers === null) return
+
   renderAvatars(numberOfPlayers)
   playGame.classList.add('animate-bounce')
 }
 
 // Used in page 2 (set-up-page)
 function renderAvatars(numPlayers) {
+  numPlayers = parseInt(numPlayers)
   playerList = []
   const avatarSection = document.querySelector("#avatar_section");
-  
+
   while (avatarSection.hasChildNodes()) {
     avatarSection.removeChild(avatarSection.firstChild);
   }
@@ -64,42 +69,48 @@ function renderAvatars(numPlayers) {
 
 
 //returns boolean to check for valid input
-function IsValid(inputVal,minval,maxval,isAvatarSection) {
+function IsValid(inputVal, minval, maxval, isAvatarSection) {
 
   if (inputVal === '') return false
-  if (isAvatarSection)return true
+  if (isAvatarSection) return true
   if (inputVal * 0 !== 0) return false
   if (inputVal < minval || inputVal > maxval) return false
-  
+
   return true
 }
 
 // renders an error message and returns null if input is invalid, returns intiger if input is valid
-function renderInputError(inputId,errorId,minVal,maxVal,isAvatarSection){
-  const numberOfPlayersInput = document.querySelector(`#${inputId}`);
-  let numberOfPlayers = numberOfPlayersInput.value
+function renderInputError(inputId, errorId, minVal, maxVal, isAvatarSection,currentDiv) {
+  const getInputById = currentDiv.querySelector(`${inputId}`);
+  let inputValue = getInputById.value
 
-  if (!IsValid(numberOfPlayers,minVal,maxVal,isAvatarSection)) {
-    const ErrorInputName = document.querySelector(`#${errorId}`).classList;
+  if (!IsValid(inputValue, minVal, maxVal, isAvatarSection)) {
+    const ErrorInputName = document.querySelector(`${errorId}`).classList;
     ErrorInputName.remove("hidden")
     return null
   }
-  
-  const ErrorInputName = document.querySelector(`#${errorId}`).classList;
+
+  const ErrorInputName = document.querySelector(`${errorId}`).classList;
   ErrorInputName.add("hidden")
-  
-  return parseInt(numberOfPlayers)
-  
+
+  return inputValue
+
 }
 
 
-//validates and starts the game game
+//validates the inputs and starts the  game
 function goToMainGame() {
-  validatePlayers()
+  const listOfPlayers = document.querySelectorAll('.player_card')
 
-}
+  let gameLimit = renderInputError('#gameLimit', '#ErrorInputLimit', 11, Infinity, false,document)
+  if (gameLimit === null) return
+  let numberOfPlayers = renderInputError('#numberOfPlayers', '#ErrorInputName', 2, 10, false,document)
+  if (numberOfPlayers === null) return
+  
+  listOfPlayers.forEach(player => {
+    let playerName = renderInputError('input', '#ErrorInputPlayerName', 2, 10, true,player)
+    if (playerName === null) return
+  });
 
-//Check if the player has a name.
-function validatePlayers(){
-
+  changePage(".set_up_page",".main_game")
 }
