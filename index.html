@@ -24,23 +24,51 @@
   </script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+    ::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: #F9F7E8; 
+  border-radius: 10px;
+}
+::-webkit-scrollbar-track {
+  background-color:#839D9A; 
+}
+
   </style>
   <style type="text/tailwindcss">
     @layer utilities {
           .welcome {
             @apply h-full;
           }
+
+          .player_card{
+            @apply h-[220px] bg-white rounded-lg overflow-hidden grid grid-rows-[50px_1fr_50px];
+          }
+
+          .player_number{
+            @apply h-full flex items-center  justify-center border-b-2 font-semibold text-lg;
+          }
+
+          .player_avatar{
+            @apply flex items-center justify-center;
+          }
+
+          .player_name{
+            @apply h-full outline-none bg-[#F9F7E8] text-center focus:bg-white;
+          }
         }
       </style>
   <title>Document</title>
 </head>
 
-<body class="h-screen font-myFont">
-  <div class="welcome">
+<body class="h-screen font-myFont bg-[#839D9A]">
+  <div class="welcome hidden">
     <div class="flex flex-col justify-center items-center h-full bg-[#839D9A] gap-6">
       <div class="font-extrabold text-[50px] flex flex-col justify-center items-center">
         <figure>
-          <img src="./images/pig_image-removebg-preview 1.png" alt="pig-image" width="300">
+          <img src="./images/avatar_3.png" alt="pig-image" width="300">
         </figure>
         <div class="flex gap-4">
           <span class="text-[#F9F7E8]">GREEDY</span>
@@ -60,8 +88,8 @@
       </div>
     </div>
   </div>
-
-  <div class="set_up_page hidden h-full bg-[#839D9A] p-8">
+<!-- set_up_page section -->
+  <div class="set_up_page h-[100vh] bg-[#839D9A] px-16 py-8">
     <div class=" grid grid-rows-[auto_1fr_auto] h-full gap-12 ">
       <header class="flex justify-between items-center ">
         <div class="flex items-center">
@@ -70,21 +98,22 @@
           </span>
            
           <figure>
-            <img src="./images/pig_image-removebg-preview 1.png" alt="pig-image" width="75">
+            <img src="./images/avatar_3.png" alt="pig-image" width="75">
           </figure>
         </div>
-        <button>How to play.</button>
+        <button class="text-[#EDA6A0] font-semibold hover:text-[#F9F7E8]">How to play.</button>
       </header>
-      <div class="grid grid-cols-[auto_1fr]">
-        <div class="flex gap-16 flex-col">
-          <div>
-          <div>
-            <p>Game Limit:</p>
-            <input type="text" placeholder="Enter the max points">
+      <div class="grid grid-cols-1 md:grid-cols-[auto_1fr] gap-48">
+        <div class="flex gap-16 flex-col ">
+          <div class="flex flex-col gap-6 ">
+          <div class="flex flex-col gap-2 ">
+            <p class="text-white font-semibold">Game Limit:</p>
+            <input class="p-2 rounded outline-none" type="text" placeholder="Eg. 100">
           </div>
-          <div>
-            <p>Number of Player:</p>
-            <input type="text"placeholder="Enter the number of players">
+          <div class="flex flex-col gap-2 ">
+            <p class="text-white font-semibold">Number of Players:</p>
+            <input class="p-2 rounded outline-none " type="text"placeholder="Eg. 5" id="numberOfPlayers">
+            <p class="text-[#EDA6A0] hidden" id="ErrorInput">Expected Numbers between 2-10</p>
           </div>
           </div>
           <button
@@ -93,7 +122,12 @@
             Generate Avatars
           </button>
         </div>
-        <div></div>
+
+
+        <!-- Avatar Section bg-black-->
+        <div class="grid grid-cols-1 md:items-start gap-4  md:justify-items-end  md:grid-cols-2 lg:grid-cols-4 md: max-h-[460px] overflow-auto" id="avatar_section">
+          <!-- Auto Generated -->
+        </div>
       </div>
       <footer class="flex justify-center items-center ">
         <button
