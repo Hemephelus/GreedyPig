@@ -7,7 +7,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <script src="https://cdn.tailwindcss.com"></script>
-
   <script>
     tailwind.config = {
       theme: {
@@ -24,7 +23,6 @@
     }
   </script>
   <style>
-
     @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap');
   </style>
   <style type="text/tailwindcss">
@@ -38,28 +36,77 @@
 </head>
 
 <body class="h-screen font-myFont">
-  <div class="welcome ">
-  <div class="flex flex-col justify-center items-center h-full bg-[#839D9A] gap-6">
-    <div class="font-extrabold text-[50px] flex flex-col justify-center items-center">
-      <figure>
-        <img src="./pig_image-removebg-preview 1.png" alt="pig-image" width="300" >
-      </figure>
-      <div class="flex gap-4">
-        <span class="text-[#F9F7E8]">GREEDY</span>
-        <span class="text-[#EDA6A0]">PIG</span>
+  <div class="welcome">
+    <div class="flex flex-col justify-center items-center h-full bg-[#839D9A] gap-6">
+      <div class="font-extrabold text-[50px] flex flex-col justify-center items-center">
+        <figure>
+          <img src="./images/pig_image-removebg-preview 1.png" alt="pig-image" width="300">
+        </figure>
+        <div class="flex gap-4">
+          <span class="text-[#F9F7E8]">GREEDY</span>
+          <span class="text-[#EDA6A0]">PIG</span>
+        </div>
+      </div>
+
+      <button
+        class="bg-[#EDA6A0] text-[#F9F7E8] font-bold px-4 py-2 rounded-lg animate-bounce hover:bg-[#F9F7E8] hover:text-[#EDA6A0]"
+        id="setUp">
+        Set Up Game
+      </button>
+
+      <div class="text-[#F9F7E8] text-center">
+        <div>Developed by Nwachukwu</div>
+        <div>Designed by Tomi</div>
       </div>
     </div>
-    
-     <button class="bg-[#EDA6A0] text-[#F9F7E8] font-bold px-4 py-2 rounded-lg animate-bounce hover:bg-[#F9F7E8] hover:text-[#EDA6A0]">
-      Set Up Game
-     </button>
-    
-    <div class="text-[#F9F7E8] text-center">
-      <div>Developed by Nwachukwu</div>
-      <div>Designed by Tomi</div>
+  </div>
+
+  <div class="set_up_page hidden h-full bg-[#839D9A] p-8">
+    <div class=" grid grid-rows-[auto_1fr_auto] h-full gap-12 ">
+      <header class="flex justify-between items-center ">
+        <div class="flex items-center">
+          <span class="text-[#F9F7E8] font-extrabold text-[32px]">Welcome to Greedy
+            <span class="text-[#EDA6A0]">PIG</span>
+          </span>
+           
+          <figure>
+            <img src="./images/pig_image-removebg-preview 1.png" alt="pig-image" width="75">
+          </figure>
+        </div>
+        <button>How to play.</button>
+      </header>
+      <div class="grid grid-cols-[auto_1fr]">
+        <div class="flex gap-16 flex-col">
+          <div>
+          <div>
+            <p>Game Limit:</p>
+            <input type="text" placeholder="Enter the max points">
+          </div>
+          <div>
+            <p>Number of Player:</p>
+            <input type="text"placeholder="Enter the number of players">
+          </div>
+          </div>
+          <button
+            class="bg-[#F9F7E8] text-[#EDA6A0] font-bold px-16 py-2 rounded-lg hover:bg-[#EDA6A0] hover:text-[#F9F7E8]"
+            id="generate_avatars">
+            Generate Avatars
+          </button>
+        </div>
+        <div></div>
+      </div>
+      <footer class="flex justify-center items-center ">
+        <button
+          class="bg-[#EDA6A0] text-[#F9F7E8] font-bold px-20 py-4 rounded-lg animate-bounce hover:bg-[#F9F7E8] hover:text-[#EDA6A0]"
+          id="play_game">
+          PLAY
+        </button>
+      </footer>
+
+
     </div>
   </div>
-  </div>
+  <script src="./code.js"></script>
 </body>
 
 </html>
