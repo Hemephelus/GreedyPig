@@ -13,15 +13,17 @@ diceFace.onclick = rollDie
 const diceFaceImg = document.querySelector('#dice-face')
 
 let game = null
-const pages = ['#welcome', '#setup', '#main_game', '#how_to']
+const pages = ['#welcome', '#setup', '#game', '#how-to']
 
 // Used in page 1 (Welcome page)
 function goToSetupPage() {
-  changePage(".welcome",".set_up_page")
+  // changePage(".welcome",".set_up_page")
+  navigateTo('#setup')
 }
 
 function BackToSetupPage() {
-  changePage(".how_to_play",".set_up_page")
+  // changePage(".how_to_play",".set_up_page")
+  history.go(-1)
 }
 
 function changePage(currentPage,nextPage) {
@@ -29,6 +31,34 @@ function changePage(currentPage,nextPage) {
   const nextPageClass = document.querySelector(`${nextPage}`).classList;
   currentPageClass.add("hidden");
   nextPageClass.remove("hidden");
+}
+
+// Function to swap pages
+function handleNavigation (hash) {
+  pages.forEach(pageHashID => {
+    let page = document.querySelector(pageHashID)
+    if (!page.classList.contains('hidden')) {
+      page.classList.add('hidden')
+    }
+  })
+
+  if (!hash) {
+    document.querySelector('#welcome').classList.remove('hidden')
+    return
+  }
+  
+  document.querySelector(hash).classList.remove('hidden')
+}
+
+// Function to change page url location
+function navigateTo (hash) {
+  if (hash === '#welcome') {
+    return
+  }
+
+  history.pushState({pageID: hash.slice(1)}, hash.slice(0, 1).toUpperCase() + hash.slice(1), hash);
+
+  handleNavigation(hash)
 }
 
 
@@ -138,11 +168,13 @@ function goToMainGame() {
     if (playerName === null)return
   }
 
-  changePage(".set_up_page",".main_game")
+  // changePage(".set_up_page",".main_game")
+  navigateTo('#game')
 }
 
 function goToHowTOplay(){
-  changePage(".set_up_page",".how_to_play")
+  // changePage(".set_up_page",".how_to_play")
+  navigateTo('#how-to')
 }
 
 function rollDie(){
@@ -169,3 +201,13 @@ function renderDice(r){
   let diceNumber = document.querySelector('#dice_number')
   diceNumber.innerHTML = r
 }
+
+window.addEventListener('load', function (event) {
+	// Log the state data to the console
+  handleNavigation(location.hash)
+});
+
+window.addEventListener('popstate', function (event) {
+	// Log the state data to the console
+  handleNavigation(location.hash)
+});
