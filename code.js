@@ -196,7 +196,7 @@ renderDice(r)
 
 
 function renderDice(r){
-  diceFaceImg.innerHTML = diceFaceImg.innerHTML+`<img class="cursor-pointer hover:scale-105 active:scale-100 absolute" src="./images/dice_faces/dice_face_${r}.svg" alt="">`
+  diceFaceImg.innerHTML = diceFaceImg.innerHTML+`<img class="cursor-pointer absolute" src="./images/dice_faces/dice_face_${r}.svg" alt="">`
 
   let diceNumber = document.querySelector('#dice_number')
   diceNumber.innerHTML = r
