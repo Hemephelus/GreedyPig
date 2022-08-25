@@ -27,6 +27,7 @@ function generatePlayers() {
   if (numberOfPlayers === null) return
 
   renderAvatars(numberOfPlayers)
+  generateAvatars.classList.remove('animate-bounce') 
   playGame.classList.add('animate-bounce')
 }
 
@@ -101,16 +102,17 @@ function renderInputError(inputId, errorId, minVal, maxVal, isAvatarSection,curr
 //validates the inputs and starts the  game
 function goToMainGame() {
   const listOfPlayers = document.querySelectorAll('.player_card')
-
+  let playerNames =[]
   let gameLimit = renderInputError('#gameLimit', '#ErrorInputLimit', 11, Infinity, false,document)
   if (gameLimit === null) return
   let numberOfPlayers = renderInputError('#numberOfPlayers', '#ErrorInputName', 2, 10, false,document)
   if (numberOfPlayers === null) return
-  
-  listOfPlayers.forEach(player => {
-    let playerName = renderInputError('input', '#ErrorInputPlayerName', 2, 10, true,player)
-    if (playerName === null) return
-  });
+  if(listOfPlayers.length === 0){ generateAvatars.classList.add('animate-bounce'); return}
+
+  for(let player = 0; player < listOfPlayers.length; player++){
+    let playerName = renderInputError('input', '#ErrorInputPlayerName', 2, 10, true,listOfPlayers[player])
+    if (playerName === null)return
+  }
 
   changePage(".set_up_page",".main_game")
 }
