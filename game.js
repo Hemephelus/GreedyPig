@@ -5,6 +5,10 @@ class GreedyPig {
         '/images/avatars/avatar_2.png',
         '/images/avatars/avatar_3.png',
         '/images/avatars/avatar_4.png',
+        '/images/avatars/avatar_5.png',
+        '/images/avatars/avatar_6.png',
+        '/images/avatars/avatar_7.png',
+        '/images/avatars/avatar_8.png',
     ]
 
     constructor (gameLimit, noOfPlayers) {
