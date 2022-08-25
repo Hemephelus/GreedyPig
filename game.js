@@ -10,10 +10,10 @@ class GreedyPig {
     constructor (gameLimit, noOfPlayers) {
         this.gameLimit = gameLimit
         this.noOfPlayers = noOfPlayers
-        this.players = {
-            ...this.players,
-            ...this.readFromLocalStorage('players')
-        }
+        // this.players = {
+        //     ...this.players,
+        //     ...this.readFromLocalStorage('players')
+        // }
         this.createPlayers(noOfPlayers)
     }
 
