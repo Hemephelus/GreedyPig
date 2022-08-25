@@ -68,7 +68,7 @@
 </head>
 
 <body class="h-screen font-myFont bg-[#839D9A]">
-  <div class="welcome">
+  <div class="welcome hidden" id="welcome">
     <div class="flex flex-col justify-center items-center h-full bg-[#839D9A] gap-6">
       <div class="font-extrabold text-[50px] flex flex-col justify-center items-center">
         <figure>
@@ -92,8 +92,10 @@
       </div>
     </div>
   </div>
+
+
 <!-- set_up_page section -->
-  <div class="set_up_page hidden h-[100vh] bg-[#839D9A] px-16 py-8">
+  <div class="set_up_page hidden h-[100vh] bg-[#839D9A] px-16 py-8" id="setup">
     <div class=" grid grid-rows-[auto_1fr_auto] h-full gap-12 ">
       <header class="flex justify-between items-center ">
         <div class="flex items-center">
@@ -105,7 +107,7 @@
             <img src="./images/avatars/avatar_1.png" alt="pig-image" width="75">
           </figure>
         </div>
-        <button class="text-[#EDA6A0] font-semibold hover:text-[#F9F7E8]">How to play.</button>
+        <button class="text-[#EDA6A0] font-semibold hover:text-[#F9F7E8]" id="how_to_play">How to play.</button>
       </header>
       <div class="grid grid-cols-1 md:grid-cols-[auto_1fr] gap-48">
         <div class="flex gap-16 flex-col ">
@@ -132,7 +134,7 @@
         <!-- Avatar Section bg-black-->
         <div class="relative">
           <p class="text-[#F9F7E8] bg-[#EDA6A0] p-2 rounded sticky  left-0 -top-0 hidden" id="ErrorInputPlayerName">A player does not have a name</p>
-        <div class="grid grid-cols-1 md:items-start gap-8 p-8 justify-between  md:grid-cols-2 lg:grid-cols-4 md: max-h-[460px] overflow-auto border-[1px] border-slate-50/50 rounded-lg relative" id="avatar_section">
+        <div class="grid grid-cols-[repeat(auto-fill,_minmax(180px,_1fr))] md:items-start gap-8 p-8 justify-between  md: max-h-[460px] overflow-auto border-[1px] border-slate-50/50 rounded-lg relative" id="avatar_section">
           <!-- Auto Generated -->
          
             <div class="animate-pulse flex space-x-4 col-span-full">
@@ -155,22 +157,97 @@
   </div>
 
   <!-- Main Game section -->
-  <div class="main_game hidden h-full">
+  <div class="main_game  h-full" id="game">
     <div class="h-full grid grid-cols-[350px_1fr_350px] ">
     <aside class="bg-[#789692] h-full border-r-[1px] px-12 flex flex-col justify-center gap-12">
 
       <!-- Dice -->
-      <p class="text-[#F9F7E8] text-[40px] font-bold  text-center">1</p>
-      <figure class="dice flex justify-center">
-        <img class="cursor-pointer hover:scale-105 active:scale-100" src="./images/dice_faces/dice_face_1.svg" alt="" >
+      <p class="text-[#F9F7E8] text-[40px] font-bold  text-center" id="dice_number" >1</p>
+      <figure class="dice flex justify-center relative" id="dice-face">
+        <img class="cursor-pointer hover:scale-105 active:scale-100" src="./images/dice_faces/dice_face_1.svg" alt="" id="">
+     
     </figure>
     <button class="bg-[#F9F7E8] text-[#789692] text-[32px] font-bold px-16 py-2 rounded-lg hover:scale-105 active:scale-100"
     id="pass_dice">Pass</button>
     </aside>
     <div></div>
-    <aside class="bg-[#789692] h-full border-l-[1px]"></aside>
+
+
+    <aside class="bg-[#789692] h-full border-l-[1px]">hrmj</aside>
   </div>
   </div>
+<!-- How to Play -->
+  <div class="how_to_play hidden" id="how-to">
+    <div class="px-16 py-8">
+      <div class="flex justify-end ">
+      <button
+          class="text-[#EDA6A0] font-semibold hover:text-[#F9F7E8]"
+          id="howToPlay_to_setUp">
+          Back to Game
+        </button>
+      </div>
+      <div class="font-extrabold text-[50px] flex flex-col justify-center items-center gap-8">
+        <figure>
+          <img src="./images/avatars/avatar_1.png"  alt="pig-image" width="300">
+        </figure>
+        <div class="flex gap-4">
+          <span class="text-[#F9F7E8]">GAME</span>
+          <span class="text-[#EDA6A0]">SETUP</span>
+        </div>
+
+        <div class="h-[250px] w-[770px] bg-white text-[20px] font-normal p-6 rounded-lg flex flex-col justify-center">
+          <h1 class="font-extrabold text-[32px] text-center">0.</h1>
+          <p class="text-center">
+          <ul class="list-decimal p-4 list-inside">
+            <li>Enter the max total point you want to reach. "First person to get to 100"</li>
+            <li>Enter the number of players playing</li>
+            <li>Next click on the <b>"Generate Avatar"</b> button</li>
+            <li>Enter the player names</li>
+            <li>Next click on the <b>"Play"</b> button</li>
+          </ul>
+         </p>
+        </div>
+        <div class="flex gap-4">
+          <span class="text-[#F9F7E8]">GREEDY</span>
+          <span class="text-[#EDA6A0]">PIG</span>
+          <span class="text-[#F9F7E8]">RULES</span>
+        </div>
+
+        <div class="h-[200px] w-[500px] bg-white text-[20px] font-normal p-6 rounded-lg flex flex-col  justify-center">
+          <h1 class="font-extrabold text-[32px] text-center">1.</h1>
+          <p class="text-center">
+          Each turn, a player repeatedly rolls a die until either a <b>1</b> is rolled or the player
+          decides to <b>"pass"</b> 
+         </p>
+        </div>
+
+        <div class="h-[200px] w-[500px] bg-white text-[20px] font-normal p-6 rounded-lg flex flex-col  justify-center">
+          <h1 class="font-extrabold text-[32px] text-center">2.</h1>
+          <p class="text-center">
+          If the player rolls a <b>1</b>, they score nothing and it becomes the next player's
+turn.
+         </p>
+        </div>
+        <div class="h-[200px] w-[500px] bg-white text-[20px] font-normal p-6 rounded-lg flex flex-col  justify-center">
+          <h1 class="font-extrabold text-[32px] text-center">3.</h1>
+          <p class="text-center">
+          If the player rolls any other number, it is added to their turn total and the
+player's turn continues.
+         </p>
+        </div>
+        <div class="h-[200px] w-[500px] bg-white text-[20px] font-normal p-6 rounded-lg flex flex-col justify-center">
+          <h1 class="font-extrabold text-[32px] text-center">4.</h1>
+         <p class="text-center">
+          The first player to score <b>100</b> or more points wins
+         </p>
+        </div>
+      </div>
+
+      
+      
+    </div>
+  </div>
+  <script src="./game.js"></script>
   <script src="./code.js"></script>
 </body>
 

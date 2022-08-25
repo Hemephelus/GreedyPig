@@ -4,10 +4,24 @@ const generateAvatars = document.querySelector('#generate_avatars')
 generateAvatars.onclick = generatePlayers
 const playGame = document.querySelector('#play_game')
 playGame.onclick = goToMainGame
+const howToPlay = document.querySelector('#how_to_play')
+howToPlay.onclick = goToHowTOplay
+const BackToSetupPageBtn = document.querySelector('#howToPlay_to_setUp')
+BackToSetupPageBtn.onclick = BackToSetupPage
+const diceFace = document.querySelector('#dice-face')
+diceFace.onclick = rollDie
+const diceFaceImg = document.querySelector('#dice-face')
+
+let game = null
+const pages = ['#welcome', '#setup', '#main_game', '#how_to']
 
 // Used in page 1 (Welcome page)
 function goToSetupPage() {
   changePage(".welcome",".set_up_page")
+}
+
+function BackToSetupPage() {
+  changePage(".how_to_play",".set_up_page")
 }
 
 function changePage(currentPage,nextPage) {
@@ -26,14 +40,18 @@ function generatePlayers() {
   let numberOfPlayers = renderInputError('#numberOfPlayers', '#ErrorInputName', 2, 10, false,document)
   if (numberOfPlayers === null) return
 
-  renderAvatars(numberOfPlayers)
+  game = new GreedyPig(
+    document.querySelector('#gameLimit').value,
+    document.querySelector('#numberOfPlayers').value,
+  )
+  renderAvatars(game.getPlayers())
   generateAvatars.classList.remove('animate-bounce') 
   playGame.classList.add('animate-bounce')
 }
 
 // Used in page 2 (set-up-page)
-function renderAvatars(numPlayers) {
-  numPlayers = parseInt(numPlayers)
+function renderAvatars(players) {
+  // numPlayers = parseInt(numPlayers)
   playerList = []
   const avatarSection = document.querySelector("#avatar_section");
 
@@ -41,10 +59,11 @@ function renderAvatars(numPlayers) {
     avatarSection.removeChild(avatarSection.firstChild);
   }
 
-  for (let i = 0; i < numPlayers; i++) {
+  for (let i = 0; i < players.length; i++) {
 
     let playerCardDiv = document.createElement('div')
     playerCardDiv.classList.add('player_card')
+    playerCardDiv.id = players[i].id
 
     let playerNumberDiv = document.createElement('div')
     playerNumberDiv.classList.add('player_number')
@@ -52,12 +71,17 @@ function renderAvatars(numPlayers) {
 
     let playerAvatarDiv = document.createElement('div')
     playerAvatarDiv.classList.add('player_avatar')
-    playerAvatarDiv.innerHTML = `<img src="./images/avatars/avatar_${i + 1}.png" alt="" width="75">`
-
+    playerAvatarDiv.innerHTML = `<img src="${location.origin+players[i].avatar}" alt="" width="75">`
+    
     let playerNameInput = document.createElement('input')
     playerNameInput.classList.add('player_name')
     playerNameInput.type = 'text'
     playerNameInput.placeholder = 'Enter Name'
+    playerNameInput.oninput = (evt) => {
+      let id = players[i].id
+      console.log(id)
+      game.modifyPlayer(id, { name: evt.target.value })
+    }
 
 
     playerCardDiv.append(playerNumberDiv, playerAvatarDiv, playerNameInput)
@@ -117,4 +141,32 @@ function goToMainGame() {
   changePage(".set_up_page",".main_game")
 }
 
+function goToHowTOplay(){
+  changePage(".set_up_page",".how_to_play")
+}
 
+function rollDie(){
+  let endRoll = 0
+  let interval,r
+ 
+      interval = setInterval(() => {
+          if(endRoll <= 30){
+              r = Math.floor((Math.random()*6)+1)
+              endRoll++
+renderDice(r)  
+              
+          }else{
+            diceFaceImg.innerHTML =`<img class="cursor-pointer hover:scale-105 active:scale-100" src="./images/dice_faces/dice_face_${r}.svg" alt="">`
+      clearInterval(interval)}
+      return
+      } , 100)
+}
+
+
+ 
+function renderDice(r){
+  diceFaceImg.innerHTML = diceFaceImg.innerHTML+`<img class="cursor-pointer hover:scale-105 active:scale-100 absolute" src="./images/dice_faces/dice_face_${r}.svg" alt="">`
+
+  let diceNumber = document.querySelector('#dice_number')
+  diceNumber.innerHTML = r
+}
