@@ -72,7 +72,7 @@
     <div class="flex flex-col justify-center items-center h-full bg-[#839D9A] gap-6">
       <div class="font-extrabold text-[50px] flex flex-col justify-center items-center">
         <figure>
-          <img src="./images/avatar_1.png" alt="pig-image" width="300">
+          <img src="./images/avatars/avatar_1.png"  alt="pig-image" width="300">
         </figure>
         <div class="flex gap-4">
           <span class="text-[#F9F7E8]">GREEDY</span>
@@ -102,7 +102,7 @@
           </span>
            
           <figure>
-            <img src="./images/avatar_1.png" alt="pig-image" width="75">
+            <img src="./images/avatars/avatar_1.png" alt="pig-image" width="75">
           </figure>
         </div>
         <button class="text-[#EDA6A0] font-semibold hover:text-[#F9F7E8]">How to play.</button>
@@ -156,10 +156,19 @@
 
   <!-- Main Game section -->
   <div class="main_game hidden h-full">
-    <div class="h-full grid grid-cols-[300px_1fr_300px] ">
-    <aside class="bg-black h-full"></aside>
-    <div>hi</div>
-    <aside class="bg-black h-full"></aside>
+    <div class="h-full grid grid-cols-[350px_1fr_350px] ">
+    <aside class="bg-[#789692] h-full border-r-[1px] px-12 flex flex-col justify-center gap-12">
+
+      <!-- Dice -->
+      <p class="text-[#F9F7E8] text-[40px] font-bold  text-center">1</p>
+      <figure class="dice flex justify-center">
+        <img class="cursor-pointer hover:scale-105 active:scale-100" src="./images/dice_faces/dice_face_1.svg" alt="" >
+    </figure>
+    <button class="bg-[#F9F7E8] text-[#789692] text-[32px] font-bold px-16 py-2 rounded-lg hover:scale-105 active:scale-100"
+    id="pass_dice">Pass</button>
+    </aside>
+    <div></div>
+    <aside class="bg-[#789692] h-full border-l-[1px]"></aside>
   </div>
   </div>
   <script src="./code.js"></script>

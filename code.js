@@ -51,7 +51,7 @@ function renderAvatars(numPlayers) {
 
     let playerAvatarDiv = document.createElement('div')
     playerAvatarDiv.classList.add('player_avatar')
-    playerAvatarDiv.innerHTML = `<img src="./images/avatar_${i + 1}.png" alt="" width="75">`
+    playerAvatarDiv.innerHTML = `<img src="./images/avatars/avatar_${i + 1}.png" alt="" width="75">`
 
     let playerNameInput = document.createElement('input')
     playerNameInput.classList.add('player_name')
@@ -114,3 +114,5 @@ function goToMainGame() {
 
   changePage(".set_up_page",".main_game")
 }
+
+
