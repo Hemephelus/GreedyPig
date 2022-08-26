@@ -1,24 +1,25 @@
 class GreedyPig {
     players = {}
-    avatars = [
-        '/images/avatars/avatar_1.png',
-        '/images/avatars/avatar_2.png',
-        '/images/avatars/avatar_3.png',
-        '/images/avatars/avatar_4.png',
-        '/images/avatars/avatar_5.png',
-        '/images/avatars/avatar_6.png',
-        '/images/avatars/avatar_7.png',
-        '/images/avatars/avatar_8.png',
-    ]
+    // avatars = [
+    //     '/images/avatars/avatar_1.png',
+    //     '/images/avatars/avatar_2.png',
+    //     '/images/avatars/avatar_3.png',
+    //     '/images/avatars/avatar_4.png',
+    //     '/images/avatars/avatar_5.png',
+    //     '/images/avatars/avatar_6.png',
+    //     '/images/avatars/avatar_7.png',
+    //     '/images/avatars/avatar_8.png',
+    // ]
 
     currentPlayerId = null
 
-    constructor (gameLimit, noOfPlayers, recoveryMode) {
+    constructor (gameLimit, noOfPlayers, players, recoveryMode) {
         this.gameLimit = gameLimit
         this.noOfPlayers = noOfPlayers
+        this.players = players
 
         if (!recoveryMode) {
-            this.createPlayers(noOfPlayers)
+            // this.createPlayers(noOfPlayers)
         }
     }
 
@@ -42,37 +43,24 @@ class GreedyPig {
         this.players = players
     }
 
-    generateId () {
-        return (Math.random() * 1000000 + Date.now()).toString(16).replace('.', '-')
-    }
+    // generateId () {
+    //     return (Math.random() * 1000000 + Date.now()).toString(16).replace('.', '-')
+    // }
 
-    createPlayers (noOfPlayers) {
-        let avatars = this.avatars
-        for (let index = 0; index < noOfPlayers; index++) {
-            let id = this.generateId()
-            let avatar = avatars.splice(Math.floor(Math.random() * this.avatars.length), 1)[0]
+    // createPlayers (noOfPlayers) {
+    //     let avatars = this.avatars
+    //     for (let index = 0; index < noOfPlayers; index++) {
+    //         let id = this.generateId()
+    //         let avatar = avatars.splice(Math.floor(Math.random() * this.avatars.length), 1)[0]
 
-            let player = {
-                id,
-                avatar,
-                name: '',
-                score: 0,
-                runningScore: 0,
-            }
+    //         let player = { id, avatar, name: '', score: 0, runningScore: 0, }
 
-            this.players[id] = player
-        }
-
-        this.saveToLocalStorage('players', this.players)
-    }
+    //         this.players[id] = player
+    //     }
+    // }
     
     modifyPlayer (id, modifications) {
-        this.players[id] = {
-            ...this.players[id],
-            ...modifications
-        }
-        
-        this.saveToLocalStorage('players', this.players)
+        this.players[id] = { ...this.players[id], ...modifications }
     }
     
     start () {

@@ -1,7 +1,6 @@
+const avatarSection = document.querySelector("#avatar_section");
 const setUpButton = document.querySelector('#setUp')
 setUpButton.onclick = goToSetupPage
-const generateAvatars = document.querySelector('#generate_avatars')
-generateAvatars.onclick = generatePlayers
 const playGame = document.querySelector('#play_game')
 playGame.onclick = goToMainGame
 const howToPlay = document.querySelector('#how_to_play')
@@ -19,6 +18,24 @@ passDiceBtn.onclick = passDice
 
 let game = null
 const pages = ['#welcome', '#setup', '#game', '#how-to']
+let players = {}
+
+// List of available avatar URLs
+const avatars = [
+  '/images/avatars/avatar_1.png',
+  '/images/avatars/avatar_2.png',
+  '/images/avatars/avatar_3.png',
+  '/images/avatars/avatar_4.png',
+  '/images/avatars/avatar_5.png',
+  '/images/avatars/avatar_6.png',
+  '/images/avatars/avatar_7.png',
+  '/images/avatars/avatar_8.png',
+]
+
+// Generate unique IDs
+function generateId () {
+  return (Math.random() * 1000000 + Date.now()).toString(16).replace('.', '-')
+}
 
 // Used in page 1 (Welcome page)
 function goToSetupPage() {
@@ -57,7 +74,6 @@ function navigateTo (hash) {
   handleNavigation(hash)
 }
 
-
 // Used in page 2 (set-up-page)
 function generatePlayers() {
   let gameLimit = renderInputError('#gameLimit', '#ErrorInputLimit', 11, Infinity, false,document)
@@ -66,24 +82,22 @@ function generatePlayers() {
   let numberOfPlayers = renderInputError('#numberOfPlayers', '#ErrorInputName', 2, 10, false,document)
   if (numberOfPlayers === null) return
 
-  // Create a Greedy Pig Instance
-  game = new GreedyPig(
-    document.querySelector('#gameLimit').value,
-    document.querySelector('#numberOfPlayers').value,
-  )
+  players = createPlayers()
 
+  avatarSection.innerHTML = ''
   // Show generated placeholder players
-  renderAvatars(game.getPlayers())
+  renderAvatars(Object.values(players))
 
-  generateAvatars.classList.remove('animate-bounce') 
+  // generateAvatars.classList.remove('animate-bounce') 
   playGame.classList.add('animate-bounce')
 }
+
+document.querySelector('#numberOfPlayers').oninput = generatePlayers
 
 // Used in page 2 (set-up-page)
 function renderAvatars(players) {
   // numPlayers = parseInt(numPlayers)
   playerList = []
-  const avatarSection = document.querySelector("#avatar_section");
 
   while (avatarSection.hasChildNodes()) {
     avatarSection.removeChild(avatarSection.firstChild);
@@ -110,18 +124,20 @@ function renderAvatars(players) {
     playerNameInput.oninput = (evt) => {
       let id = players[i].id
       console.log(id)
-      game.modifyPlayer(id, { name: evt.target.value })
+      modifyPlayer(id, { name: evt.target.value })
     }
 
 
     playerCardDiv.append(playerNumberDiv, playerAvatarDiv, playerNameInput)
-    playerList.push(playerCardDiv)
+    avatarSection.append(playerCardDiv)
   }
 
-  avatarSection.append(...playerList)
-
+  // avatarSection.append(...playerList)
 }
 
+function modifyPlayer (id, modifications) {
+  players[id] = { ...players[id], ...modifications }
+}
 
 //returns boolean to check for valid input
 function IsValid(inputVal, minval, maxval, isAvatarSection) {
@@ -152,6 +168,21 @@ function renderInputError(inputId, errorId, minVal, maxVal, isAvatarSection,curr
 
 }
 
+function createPlayers () {
+  const noOfPlayers = document.querySelector('#numberOfPlayers').value
+  const newPlayers = {}
+  let tempAvatars = [...avatars]
+  for (let index = 0; index < noOfPlayers; index++) {
+      let id = generateId()
+      let avatar = tempAvatars.splice(Math.floor(Math.random() * tempAvatars.length), 1)[0]
+
+      let player = { id, avatar, name: '', score: 0, runningScore: 0, }
+
+      newPlayers[id] = player
+  }
+
+  return newPlayers
+}
 
 //validates the inputs and starts the game
 function goToMainGame() {
@@ -167,6 +198,13 @@ function goToMainGame() {
     let playerName = renderInputError('input', '#ErrorInputPlayerName', 2, 10, true,listOfPlayers[player])
     if (playerName === null)return
   }
+
+  // Create a Greedy Pig Instance
+  game = new GreedyPig(
+    document.querySelector('#gameLimit').value,
+    document.querySelector('#numberOfPlayers').value,
+    players
+  )
 
   game.start()
   setupGameScreen()
