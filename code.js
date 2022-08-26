@@ -172,6 +172,7 @@ function goToMainGame() {
   setupGameScreen()
   showWhoseTurn()
   navigateTo('#game')
+  saveGameState()
 }
 
 // Function to show whose turn it is to play
@@ -223,6 +224,7 @@ function passDice () {
   // Move to the next player
   game.nextTurn()
   showWhoseTurn()
+  saveGameState()
 }
 
 // Function to navigate to the #how-to page
@@ -230,6 +232,7 @@ function goToHowTOplay(){
   navigateTo('#how-to')
 }
 
+// Function to update user running score after dice roll
 function handleUserScore (diceRoll) {
   // Handle User score increment/reset and pass dice to other players
   let playerId = game.currentPlayerId
@@ -268,13 +271,24 @@ function rollDie(){
       clearInterval(interval)
 
       handleUserScore(r)
+      saveGameState()
     }
   
     return
   } , 100)
 }
 
+// Function to save game state
+function saveGameState () {
+  localStorage.setItem('game-state', JSON.stringify({
+    gameLimit: game.gameLimit,
+    noOfPlayers: game.noOfPlayers,
+    currentPlayerId: game.currentPlayerId,
+    players: game.players,
+  }))
+}
 
+// Function to render dice faces
 function renderDice(r){
   diceFaceImg.innerHTML = diceFaceImg.innerHTML+`<img class="cursor-pointer absolute" src="./images/dice_faces/dice_face_${r}.svg" alt="">`
 
@@ -284,6 +298,17 @@ function renderDice(r){
 
 window.addEventListener('load', function (event) {
   handleNavigation(location.hash)
+
+  if (location.hash === '#game') {
+    let prevGameState = JSON.parse(localStorage.getItem('game-state'))
+    game = new GreedyPig(prevGameState.gameLimit, prevGameState.noOfPlayers, true)
+    game.setPlayers(prevGameState.players)
+    game.currentPlayerId = prevGameState.currentPlayerId
+    showWhoseTurn()
+    setupGameScreen()
+  } else {
+    localStorage.removeItem('game-state')
+  }
 });
 
 window.addEventListener('popstate', function (event) {

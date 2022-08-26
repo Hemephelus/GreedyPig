@@ -13,10 +13,13 @@ class GreedyPig {
 
     currentPlayerId = null
 
-    constructor (gameLimit, noOfPlayers) {
+    constructor (gameLimit, noOfPlayers, recoveryMode) {
         this.gameLimit = gameLimit
         this.noOfPlayers = noOfPlayers
-        this.createPlayers(noOfPlayers)
+
+        if (!recoveryMode) {
+            this.createPlayers(noOfPlayers)
+        }
     }
 
     checkGameOver () {
@@ -33,6 +36,10 @@ class GreedyPig {
 
     getPlayer (id) {
         return this.players[id]
+    }
+
+    setPlayers (players) {
+        this.players = players
     }
 
     generateId () {
