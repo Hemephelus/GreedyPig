@@ -71,9 +71,22 @@
           .active-card{
             @apply flex h-[60px] gap-12 p-4  mx-4 items-center bg-slate-100 rounded-lg shadow-lg shadow-[#789692] scale-[101%];
           }
+          .winning-l-card{
+            @apply flex h-[40px] gap-4 py-6 px-4  items-center bg-[#EDA6A0] rounded text-slate-100 animate-pulse scale-[105%];
+          }
+          .normarl-l-card{
+            @apply flex h-[40px] gap-4 py-6 px-4  items-center hover:bg-[#839D9A] rounded text-slate-100 border-[1px];
+          }
+
+          .header-l-card{
+            @apply flex justify-center  items-center text-slate-100 ;
+          }
 
           .inactive-card{
             @apply flex h-[60px] gap-12 p-4  mx-4 items-center hover:bg-[#789692] text-slate-100 rounded-lg shadow-lg shadow-[#789692] border-[1px];
+          }
+          .avatar_turn{
+            @apply bg-[#789692] hover:bg-[#839D9A]   shadow-lg shadow-[#789692] border-[1px]  w-60 h-60 rounded-lg flex flex-col items-center justify-center;
           }
 }
   
@@ -183,24 +196,25 @@
         <!-- Dice -->
         <p class="text-[#F9F7E8] text-[40px] font-bold  text-center" id="dice_number">1</p>
         <figure class="dice flex justify-center relative" id="dice-face">
-          <img class="cursor-pointer hover:scale-105 active:scale-100" src="./images/dice_faces/dice_face_1.svg" alt=""
-            id="">
+          <div class="bg-white cursor-pointer hover:scale-105 active:scale-100 rounded-[30px]">
+          <img class="" src="./images/dice_faces/dice_face_1.svg" alt="" width="150">
+        </div>
 
         </figure>
         <button
           class="bg-[#F9F7E8] text-[#789692] text-[32px] font-bold px-16 py-2 rounded-lg hover:scale-105 active:scale-100"
           id="pass_dice">Pass</button>
           <div class="limit_num bg-[#839D9A] border-[1px] p-2 rounded">
-            <h1 class="text-white text-center text-lg font-semibold">100</h1>
             <h2 class="text-[#EDA6A0] text-center text-lg font-semibold">Game Limit</h2>
+            <h1 class="text-white text-center text-lg font-semibold">100</h1>
           </div>
           <div class="players_num bg-[#839D9A] border-[1px] p-2 rounded">
+            <h2 class="text-[#EDA6A0] text-center text-lg font-semibold">Players</h2>
             <h1 class="text-white text-center text-lg font-semibold">5</h1>
-            <h2 class="text-[#EDA6A0] text-center text-lg font-semibold">Number of Players</h2>
           </div>
         <div></div>
       </aside>
-
+<!-- Main section -->
       <div>
         <div class="font-extrabold text-[50px] flex gap-2 justify-center items-center">
           <div class="animate-pulse flex space-x-4 col-span-full">
@@ -209,8 +223,8 @@
         </div>
       </div>
         <div class="flex h-[60px] p-4 mx-4 gap-12 items-center  text-white">
-          <figure class="font-semibold text-[20px] flex-1">Avatar</figure>
-          <h2 class="font-semibold text-[20px] flex-1">Player Name</h2>
+          <figure class="font-semibold text-[20px] "></figure>
+          <h2 class="font-semibold text-[20px] flex-1"></h2>
           <p class="font-semibold text-[20px] flex-1">Total Points</p>
           <p class="font-semibold text-[20px] flex-1">Running Points</p>
         </div>
@@ -223,10 +237,45 @@
 
 
       <aside class="bg-[#789692] border-l-[1px] flex flex-col gap-8 h-full justify-center px-12">
-        <figure class="bg-[#839D9A] hover:bg-[#839D9A] text-slate-100  shadow-lg shadow-[#789692] border-[1px]  w-60 h-60 rounded-lg flex flex-col items-center justify-center gap-2" id="player_turn_avatar"></figure>
-  
-        <div class="h-60" id="leaderboard">
-  
+        <div id="player_turn_avatar" class="flex flex-col items-center justify-center text-[20px] font-bold text-slate-100 gap-2">
+            <!-- Auto Generated -->
+        </div>
+
+        <!-- leader Board -->
+        <div class="h-60 flex flex-col gap-4" id="leaderboard">
+          <div class="header-l-card">
+            <p class="font-bold text-[18px]">Leader Board</p>
+            
+          </div>
+
+          <div class="winning-l-card">
+            <p class="font-semibold text-[12px]">1</p>
+            <figure class="font-semibold ] w-[10px] flex-1">
+              <img src="./images/avatars/avatar_5.png" alt="" width="40">
+            </figure>
+
+            <h2 class="font-semibold text-[16px] flex-1">Nwachukwu</h2>
+            <p class="font-semibold text-[16px] flex-1">89</p>
+          </div>
+          <div class="normarl-l-card">
+            <p class="font-semibold text-[16px]">2</p>
+            <figure class="font-semibold ] w-[10px] flex-1">
+              <img src="./images/avatars/avatar_6.png" alt="" width="40">
+            </figure>
+
+            <h2 class="font-semibold text-[16px] flex-1">Nwachukwu</h2>
+            <p class="font-semibold text-[16px] flex-1">89</p>
+          </div>
+          <div class="normarl-l-card">
+            <p class="font-semibold text-[16px]">3</p>
+            <figure class="font-semibold ] w-[10px] flex-1">
+              <img src="./images/avatars/avatar_7.png" alt="" width="40">
+            </figure>
+
+            <h2 class="font-semibold text-[16px] flex-1">Nwachukwu</h2>
+            <p class="font-semibold text-[16px] flex-1">89</p>
+          </div>
+          
         </div>
       </aside>
     </div>
@@ -234,8 +283,8 @@
   <!-- How to Play -->
   <div class="how_to_play hidden" id="how-to">
     <div class="px-16 py-8">
-      <div class="flex justify-end ">
-        <button class="text-[#EDA6A0] font-semibold hover:text-[#F9F7E8]" id="howToPlay_to_setUp">
+      <div class="flex justify-end relative ">
+        <button class="text-[#EDA6A0] fixed top-10 right-10 font-semibold hover:text-[#F9F7E8]" id="howToPlay_to_setUp">
           Back to Game
         </button>
       </div>

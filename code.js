@@ -33,7 +33,7 @@ const avatars = [
 ]
 
 // Generate unique IDs
-function generateId () {
+function generateId() {
   return (Math.random() * 1000000 + Date.now()).toString(16).replace('.', '-')
 }
 
@@ -47,7 +47,7 @@ function BackToSetupPage() {
 }
 
 // Function to swap pages
-function handleNavigation (hash) {
+function handleNavigation(hash) {
   pages.forEach(pageHashID => {
     let page = document.querySelector(pageHashID)
     if (!page.classList.contains('hidden')) {
@@ -59,27 +59,27 @@ function handleNavigation (hash) {
     document.querySelector('#welcome').classList.remove('hidden')
     return
   }
-  
+
   document.querySelector(hash).classList.remove('hidden')
 }
 
 // Function to change page url location
-function navigateTo (hash) {
+function navigateTo(hash) {
   if (hash === '#welcome') {
     return
   }
 
-  history.pushState({pageID: hash.slice(1)}, hash.slice(0, 1).toUpperCase() + hash.slice(1), hash);
+  history.pushState({ pageID: hash.slice(1) }, hash.slice(0, 1).toUpperCase() + hash.slice(1), hash);
 
   handleNavigation(hash)
 }
 
 // Used in page 2 (set-up-page)
 function generatePlayers() {
-  let gameLimit = renderInputError('#gameLimit', '#ErrorInputLimit', 11, Infinity, false,document)
+  let gameLimit = renderInputError('#gameLimit', '#ErrorInputLimit', 11, Infinity, false, document)
   if (gameLimit === null) return
 
-  let numberOfPlayers = renderInputError('#numberOfPlayers', '#ErrorInputName', 2, 10, false,document)
+  let numberOfPlayers = renderInputError('#numberOfPlayers', '#ErrorInputName', 2, 10, false, document)
   if (numberOfPlayers === null) return
 
   players = createPlayers()
@@ -116,7 +116,7 @@ function renderAvatars(players) {
     let playerAvatarDiv = document.createElement('div')
     playerAvatarDiv.classList.add('player_avatar')
     playerAvatarDiv.innerHTML = `<img src=".${players[i].avatar}" alt="" width="75">`
-    
+
     let playerNameInput = document.createElement('input')
     playerNameInput.classList.add('player_name')
     playerNameInput.type = 'text'
@@ -135,7 +135,7 @@ function renderAvatars(players) {
   // avatarSection.append(...playerList)
 }
 
-function modifyPlayer (id, modifications) {
+function modifyPlayer(id, modifications) {
   players[id] = { ...players[id], ...modifications }
 }
 
@@ -151,7 +151,7 @@ function IsValid(inputVal, minval, maxval, isAvatarSection) {
 }
 
 // renders an error message and returns null if input is invalid, returns integer if input is valid
-function renderInputError(inputId, errorId, minVal, maxVal, isAvatarSection,currentDiv) {
+function renderInputError(inputId, errorId, minVal, maxVal, isAvatarSection, currentDiv) {
   const getInputById = currentDiv.querySelector(`${inputId}`);
   let inputValue = getInputById.value
 
@@ -168,17 +168,17 @@ function renderInputError(inputId, errorId, minVal, maxVal, isAvatarSection,curr
 
 }
 
-function createPlayers () {
+function createPlayers() {
   const noOfPlayers = document.querySelector('#numberOfPlayers').value
   const newPlayers = {}
   let tempAvatars = [...avatars]
   for (let index = 0; index < noOfPlayers; index++) {
-      let id = generateId()
-      let avatar = tempAvatars.splice(Math.floor(Math.random() * tempAvatars.length), 1)[0]
+    let id = generateId()
+    let avatar = tempAvatars.splice(Math.floor(Math.random() * tempAvatars.length), 1)[0]
 
-      let player = { id, avatar, name: '', score: 0, runningScore: 0, }
+    let player = { id, avatar, name: '', score: 0, runningScore: 0, }
 
-      newPlayers[id] = player
+    newPlayers[id] = player
   }
 
   return newPlayers
@@ -187,16 +187,16 @@ function createPlayers () {
 //validates the inputs and starts the game
 function goToMainGame() {
   const listOfPlayers = document.querySelectorAll('.player_card')
-  let playerNames =[]
-  let gameLimit = renderInputError('#gameLimit', '#ErrorInputLimit', 11, Infinity, false,document)
+  let playerNames = []
+  let gameLimit = renderInputError('#gameLimit', '#ErrorInputLimit', 11, Infinity, false, document)
   if (gameLimit === null) return
-  let numberOfPlayers = renderInputError('#numberOfPlayers', '#ErrorInputName', 2, 10, false,document)
+  let numberOfPlayers = renderInputError('#numberOfPlayers', '#ErrorInputName', 2, 10, false, document)
   if (numberOfPlayers === null) return
-  if(listOfPlayers.length === 0){ generateAvatars.classList.add('animate-bounce'); return}
+  if (listOfPlayers.length === 0) { generateAvatars.classList.add('animate-bounce'); return }
 
-  for(let player = 0; player < listOfPlayers.length; player++){
-    let playerName = renderInputError('input', '#ErrorInputPlayerName', 2, 10, true,listOfPlayers[player])
-    if (playerName === null)return
+  for (let player = 0; player < listOfPlayers.length; player++) {
+    let playerName = renderInputError('input', '#ErrorInputPlayerName', 2, 10, true, listOfPlayers[player])
+    if (playerName === null) return
   }
 
   // Create a Greedy Pig Instance
@@ -214,23 +214,24 @@ function goToMainGame() {
 }
 
 // Function to show whose turn it is to play
-function showWhoseTurn () {
+function showWhoseTurn() {
   generatePlayersList()
 
   let currentPlayer = game.getPlayer(game.currentPlayerId)
 
   playerTurnAvatar.innerHTML = `
+  <p>${currentPlayer.name}'s Turn </p>
+  <figure class="avatar_turn">
     <img src=".${currentPlayer.avatar}" alt="" width="100">
-    <p class="text-lg font-medium">${currentPlayer.name}'s Turn </p>
-  `
+  </figure>`
 }
 
 // Function to Generate Players List
-function generatePlayersList () {
+function generatePlayersList() {
   let playerCards = game.getPlayers().map(player => {
     return `
       <div class="${player.id === game.currentPlayerId ? 'active-card' : 'inactive-card'}">
-        <figure class="font-semibold text-[20px] flex-1 w-[50px]">
+        <figure class="w-[50px]">
           <img src=".${player.avatar}" alt="" width="40">
         </figure>
         <h2 class="font-semibold text-[20px] flex-1">${player.name}</h2>
@@ -244,13 +245,13 @@ function generatePlayersList () {
 }
 
 // Function to prefill the game screen with current information
-function setupGameScreen () {
+function setupGameScreen() {
   gameLimitBox.textContent = game.gameLimit
   playerNumBox.textContent = game.noOfPlayers
 }
 
 // Function to pass the dice to next player
-function passDice () {
+function passDice() {
   // Add running score to player score
   let playerId = game.currentPlayerId
   let player = game.getPlayer(playerId)
@@ -266,12 +267,12 @@ function passDice () {
 }
 
 // Function to navigate to the #how-to page
-function goToHowTOplay(){
+function goToHowTOplay() {
   navigateTo('#how-to')
 }
 
 // Function to update user running score after dice roll
-function handleUserScore (diceRoll) {
+function handleUserScore(diceRoll) {
   // Handle User score increment/reset and pass dice to other players
   let playerId = game.currentPlayerId
   let player = game.getPlayer(playerId)
@@ -292,32 +293,32 @@ function handleUserScore (diceRoll) {
   }
 
   showWhoseTurn()
-} 
+}
 
 // Function to roll the dice
-function rollDie(){
+function rollDie() {
   let endRoll = 0
   let interval, r
- 
+
   interval = setInterval(() => {
-    if(endRoll <= 30){
-        r = Math.floor((Math.random()*6)+1)
-        endRoll++
-        renderDice(r)  
+    if (endRoll <= 30) {
+      r = Math.floor((Math.random() * 6) + 1)
+      endRoll++
+      renderDice(r)
     } else {
-      diceFaceImg.innerHTML =`<img class="cursor-pointer hover:scale-105 active:scale-100" src="./images/dice_faces/dice_face_${r}.svg" alt="">`
+      diceFaceImg.innerHTML = `<div class="bg-white cursor-pointer hover:scale-105 active:scale-100 rounded-[30px]"><img src="./images/dice_faces/dice_face_${r}.svg" alt="" width="150"></div>`
       clearInterval(interval)
 
       handleUserScore(r)
       saveGameState()
     }
-  
+
     return
-  } , 100)
+  }, 100)
 }
 
 // Function to save game state
-function saveGameState () {
+function saveGameState() {
   localStorage.setItem('game-state', JSON.stringify({
     gameLimit: game.gameLimit,
     noOfPlayers: game.noOfPlayers,
@@ -327,8 +328,8 @@ function saveGameState () {
 }
 
 // Function to render dice faces
-function renderDice(r){
-  diceFaceImg.innerHTML = diceFaceImg.innerHTML+`<img class="cursor-pointer absolute" src="./images/dice_faces/dice_face_${r}.svg" alt="">`
+function renderDice(r) {
+  diceFaceImg.innerHTML = diceFaceImg.innerHTML + `<div class="bg-white absolute cursor-pointer hover:scale-105 active:scale-100 rounded-[30px]"><img src="./images/dice_faces/dice_face_${r}.svg" alt="" width="150"></div>`
 
   let diceNumber = document.querySelector('#dice_number')
   diceNumber.innerHTML = r
