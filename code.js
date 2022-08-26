@@ -315,7 +315,7 @@ function handleUserScore(diceRoll) {
     // Add Dice roll count to running score
     game.modifyPlayer(playerId, {
       runningScore: player.runningScore + diceRoll,
-      score: player.score + player.runningScore
+      score: player.score + player.runningScore + diceRoll
     })
 
     // Change Background Here
