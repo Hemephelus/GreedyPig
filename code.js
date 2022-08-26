@@ -182,7 +182,7 @@ function showWhoseTurn () {
 
   playerTurnAvatar.innerHTML = `
     <img src=".${currentPlayer.avatar}" alt="" width="100">
-    <p class="text-lg font-medium">${currentPlayer.name}</p>
+    <p class="text-lg font-medium">${currentPlayer.name}'s Turn</p>
   `
 }
 
@@ -212,6 +212,15 @@ function setupGameScreen () {
 
 // Function to pass the dice to next player
 function passDice () {
+  // Add running score to player score
+  let playerId = game.currentPlayerId
+  let player = game.getPlayer(playerId)
+  game.modifyPlayer(playerId, {
+    score: player.score + player.runningScore,
+    runningScore: 0
+  })
+
+  // Move to the next player
   game.nextTurn()
   showWhoseTurn()
 }
@@ -221,10 +230,33 @@ function goToHowTOplay(){
   navigateTo('#how-to')
 }
 
+function handleUserScore (diceRoll) {
+  // Handle User score increment/reset and pass dice to other players
+  let playerId = game.currentPlayerId
+  let player = game.getPlayer(playerId)
+
+  if (diceRoll === 1) {
+    // Reset Running Score
+    game.modifyPlayer(playerId, {
+      runningScore: 0
+    })
+
+    // Pass Dice
+    passDice()
+  } else {
+    // Add Dice roll count to running score
+    game.modifyPlayer(playerId, {
+      runningScore: player.runningScore + diceRoll
+    })
+  }
+
+  showWhoseTurn()
+} 
+
 // Function to roll the dice
 function rollDie(){
   let endRoll = 0
-  let interval,r
+  let interval, r
  
   interval = setInterval(() => {
     if(endRoll <= 30){
@@ -234,6 +266,8 @@ function rollDie(){
     } else {
       diceFaceImg.innerHTML =`<img class="cursor-pointer hover:scale-105 active:scale-100" src="./images/dice_faces/dice_face_${r}.svg" alt="">`
       clearInterval(interval)
+
+      handleUserScore(r)
     }
   
     return
