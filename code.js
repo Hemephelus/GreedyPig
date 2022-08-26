@@ -216,6 +216,7 @@ function goToMainGame() {
 // Function to show whose turn it is to play
 function showWhoseTurn() {
   generatePlayersList()
+  generateLeaders()
 
   let currentPlayer = game.getPlayer(game.currentPlayerId)
 
@@ -242,6 +243,26 @@ function generatePlayersList() {
   })
 
   document.querySelector('.body_cards').innerHTML = playerCards.join('')
+}
+
+// Function to generate leading user based on score
+function generateLeaders() {
+  let leadingPlayers = game.getPlayers().sort((a, b) => b.score - a.score)
+  let playerCards = leadingPlayers.map((player, index) => {
+    return `
+      <div class="${index === 0 ? 'winning-l-card': 'normarl-l-card'}">
+        <p class="font-semibold text-[12px]">${index + 1}</p>
+        <figure class="font-semibold ] w-[10px] flex-1">
+          <img src=".${player.avatar}" alt="" width="40">
+        </figure>
+
+        <h2 class="font-semibold text-[16px] flex-1">${player.name}</h2>
+        <p class="font-semibold text-[16px] flex-1">${player.score}</p>
+      </div>
+    `
+  })
+
+  document.querySelector('#leaderboard .list').innerHTML = playerCards.join('')
 }
 
 // Function to prefill the game screen with current information
@@ -280,16 +301,24 @@ function handleUserScore(diceRoll) {
   if (diceRoll === 1) {
     // Reset Running Score
     game.modifyPlayer(playerId, {
+      score: player.score - player.runningScore
+    })
+    game.modifyPlayer(playerId, {
       runningScore: 0
     })
 
     // Pass Dice
     passDice()
+
+    // Change Background Here
   } else {
     // Add Dice roll count to running score
     game.modifyPlayer(playerId, {
-      runningScore: player.runningScore + diceRoll
+      runningScore: player.runningScore + diceRoll,
+      score: player.score + player.runningScore + diceRoll
     })
+
+    // Change Background Here
   }
 
   showWhoseTurn()
