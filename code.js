@@ -221,7 +221,7 @@ function showWhoseTurn () {
 
   playerTurnAvatar.innerHTML = `
     <img src=".${currentPlayer.avatar}" alt="" width="100">
-    <p class="text-lg font-medium">${currentPlayer.name}'s Turn</p>
+    <p class="text-lg font-medium">${currentPlayer.name}'s Turn </p>
   `
 }
 
