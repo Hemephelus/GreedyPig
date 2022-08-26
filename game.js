@@ -40,11 +40,14 @@ class GreedyPig {
     }
 
     createPlayers (noOfPlayers) {
+        let avatars = this.avatars
         for (let index = 0; index < noOfPlayers; index++) {
             let id = this.generateId()
+            let avatar = avatars.splice(Math.floor(Math.random() * this.avatars.length), 1)[0]
+
             let player = {
                 id,
-                avatar: this.avatars[Math.floor(Math.random() * this.avatars.length)],
+                avatar,
                 name: '',
                 score: 0,
                 runningScore: 0,
