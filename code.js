@@ -11,26 +11,22 @@ BackToSetupPageBtn.onclick = BackToSetupPage
 const diceFace = document.querySelector('#dice-face')
 diceFace.onclick = rollDie
 const diceFaceImg = document.querySelector('#dice-face')
+const playerTurnAvatar = document.querySelector('#player_turn_avatar')
+const gameLimitBox = document.querySelector('.limit_num h1')
+const playerNumBox = document.querySelector('.players_num h1')
+const passDiceBtn = document.querySelector('#pass_dice')
+passDiceBtn.onclick = passDice
 
 let game = null
 const pages = ['#welcome', '#setup', '#game', '#how-to']
 
 // Used in page 1 (Welcome page)
 function goToSetupPage() {
-  // changePage(".welcome",".set_up_page")
   navigateTo('#setup')
 }
 
 function BackToSetupPage() {
-  // changePage(".how_to_play",".set_up_page")
   history.go(-1)
-}
-
-function changePage(currentPage,nextPage) {
-  const currentPageClass = document.querySelector(`${currentPage}`).classList;
-  const nextPageClass = document.querySelector(`${nextPage}`).classList;
-  currentPageClass.add("hidden");
-  nextPageClass.remove("hidden");
 }
 
 // Function to swap pages
@@ -70,11 +66,15 @@ function generatePlayers() {
   let numberOfPlayers = renderInputError('#numberOfPlayers', '#ErrorInputName', 2, 10, false,document)
   if (numberOfPlayers === null) return
 
+  // Create a Greedy Pig Instance
   game = new GreedyPig(
     document.querySelector('#gameLimit').value,
     document.querySelector('#numberOfPlayers').value,
   )
+
+  // Show generated placeholder players
   renderAvatars(game.getPlayers())
+
   generateAvatars.classList.remove('animate-bounce') 
   playGame.classList.add('animate-bounce')
 }
@@ -101,7 +101,7 @@ function renderAvatars(players) {
 
     let playerAvatarDiv = document.createElement('div')
     playerAvatarDiv.classList.add('player_avatar')
-    playerAvatarDiv.innerHTML = `<img src="${location.origin+players[i].avatar}" alt="" width="75">`
+    playerAvatarDiv.innerHTML = `<img src=".${players[i].avatar}" alt="" width="75">`
     
     let playerNameInput = document.createElement('input')
     playerNameInput.classList.add('player_name')
@@ -134,7 +134,7 @@ function IsValid(inputVal, minval, maxval, isAvatarSection) {
   return true
 }
 
-// renders an error message and returns null if input is invalid, returns intiger if input is valid
+// renders an error message and returns null if input is invalid, returns integer if input is valid
 function renderInputError(inputId, errorId, minVal, maxVal, isAvatarSection,currentDiv) {
   const getInputById = currentDiv.querySelector(`${inputId}`);
   let inputValue = getInputById.value
@@ -153,7 +153,7 @@ function renderInputError(inputId, errorId, minVal, maxVal, isAvatarSection,curr
 }
 
 
-//validates the inputs and starts the  game
+//validates the inputs and starts the game
 function goToMainGame() {
   const listOfPlayers = document.querySelectorAll('.player_card')
   let playerNames =[]
@@ -168,12 +168,32 @@ function goToMainGame() {
     if (playerName === null)return
   }
 
-  // changePage(".set_up_page",".main_game")
+  game.start()
+  setupGameScreen()
+  showWhoseTurn()
   navigateTo('#game')
 }
 
+function showWhoseTurn () {
+  let currentPlayer = game.getPlayer(game.currentPlayerId)
+
+  playerTurnAvatar.innerHTML = `
+    <img src=".${currentPlayer.avatar}" alt="" width="100">
+    <p class="text-lg font-medium">${currentPlayer.name}</p>
+  `
+}
+
+function setupGameScreen () {
+  gameLimitBox.textContent = game.gameLimit
+  playerNumBox.textContent = game.noOfPlayers
+}
+
+function passDice () {
+  game.nextTurn()
+  showWhoseTurn()
+}
+
 function goToHowTOplay(){
-  // changePage(".set_up_page",".how_to_play")
   navigateTo('#how-to')
 }
 
@@ -181,17 +201,18 @@ function rollDie(){
   let endRoll = 0
   let interval,r
  
-      interval = setInterval(() => {
-          if(endRoll <= 30){
-              r = Math.floor((Math.random()*6)+1)
-              endRoll++
-renderDice(r)  
-              
-          }else{
-            diceFaceImg.innerHTML =`<img class="cursor-pointer hover:scale-105 active:scale-100" src="./images/dice_faces/dice_face_${r}.svg" alt="">`
-      clearInterval(interval)}
-      return
-      } , 100)
+  interval = setInterval(() => {
+    if(endRoll <= 30){
+        r = Math.floor((Math.random()*6)+1)
+        endRoll++
+        renderDice(r)  
+    } else {
+      diceFaceImg.innerHTML =`<img class="cursor-pointer hover:scale-105 active:scale-100" src="./images/dice_faces/dice_face_${r}.svg" alt="">`
+      clearInterval(interval)
+    }
+  
+    return
+  } , 100)
 }
 
 
@@ -203,11 +224,9 @@ function renderDice(r){
 }
 
 window.addEventListener('load', function (event) {
-	// Log the state data to the console
   handleNavigation(location.hash)
 });
 
 window.addEventListener('popstate', function (event) {
-	// Log the state data to the console
   handleNavigation(location.hash)
 });
