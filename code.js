@@ -174,7 +174,10 @@ function goToMainGame() {
   navigateTo('#game')
 }
 
+// Function to show whose turn it is to play
 function showWhoseTurn () {
+  generatePlayersList()
+
   let currentPlayer = game.getPlayer(game.currentPlayerId)
 
   playerTurnAvatar.innerHTML = `
@@ -183,20 +186,42 @@ function showWhoseTurn () {
   `
 }
 
+// Function to Generate Players List
+function generatePlayersList () {
+  let playerCards = game.getPlayers().map(player => {
+    return `
+      <div class="${player.id === game.currentPlayerId ? 'active-card' : 'inactive-card'}">
+        <figure class="font-semibold text-[20px] flex-1 w-[50px]">
+          <img src=".${player.avatar}" alt="" width="40">
+        </figure>
+        <h2 class="font-semibold text-[20px] flex-1">${player.name}</h2>
+        <p class="font-semibold text-[20px] flex-1">${player.score}</p>
+        <p class="font-semibold text-[20px] flex-1">${player.runningScore}</p>
+      </div>
+    `
+  })
+
+  document.querySelector('.body_cards').innerHTML = playerCards.join('')
+}
+
+// Function to prefill the game screen with current information
 function setupGameScreen () {
   gameLimitBox.textContent = game.gameLimit
   playerNumBox.textContent = game.noOfPlayers
 }
 
+// Function to pass the dice to next player
 function passDice () {
   game.nextTurn()
   showWhoseTurn()
 }
 
+// Function to navigate to the #how-to page
 function goToHowTOplay(){
   navigateTo('#how-to')
 }
 
+// Function to roll the dice
 function rollDie(){
   let endRoll = 0
   let interval,r
