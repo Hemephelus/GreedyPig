@@ -96,7 +96,7 @@
       </div>
 
       <button
-        class="bg-[#EDA6A0] text-[#F9F7E8] font-bold px-4 py-2 rounded-lg animate-bounce hover:bg-[#F9F7E8] hover:text-[#EDA6A0]"
+        class="bg-[#EDA6A0] text-[#F9F7E8] font-bold px-4 py-2 rounded-lg animate-bounce hover:animate-none hover:bg-[#F9F7E8] hover:text-[#EDA6A0]"
         id="setUp">
         Set Up Game
       </button>
@@ -129,12 +129,12 @@
           <div class="flex flex-col gap-6 ">
             <div class="flex flex-col gap-2 ">
               <p class="text-white font-semibold">Game Limit:</p>
-              <input class="p-2 rounded outline-none" type="text" placeholder="Eg. 100" id="gameLimit">
+              <input class="p-2 rounded outline-none bg-[#F9F7E8]" type="text" placeholder="Eg. 100" id="gameLimit">
               <p class="text-[#EDA6A0] hidden" id="ErrorInputLimit">Expected numbers above 10</p>
             </div>
             <div class="flex flex-col gap-2 ">
               <p class="text-white font-semibold">Players:</p>
-              <input class="p-2 rounded outline-none " type="text" placeholder="Eg. 5" id="numberOfPlayers">
+              <input class="p-2 rounded outline-none bg-[#F9F7E8]" type="text" placeholder="Eg. 5" id="numberOfPlayers">
               <p class="text-[#EDA6A0] hidden" id="ErrorInputName">Expected numbers between 2-10</p>
             </div>
           </div>
@@ -153,6 +153,7 @@
           <div
             class="grid grid-cols-[repeat(auto-fill,_minmax(180px,_1fr))] md:items-start gap-8 p-8 justify-between  md: max-h-[460px] overflow-auto border-[1px] border-slate-50/50 rounded-lg relative"
             id="avatar_section">
+            
             <!-- Auto Generated -->
 
             <div class="animate-pulse flex space-x-4 col-span-full">
@@ -166,7 +167,7 @@
       </div>
       <footer class="flex justify-center items-center ">
         <button
-          class="bg-[#EDA6A0] text-[#F9F7E8] font-bold px-20 py-4 rounded-lg  hover:bg-[#F9F7E8] hover:text-[#EDA6A0]"
+          class="bg-[#EDA6A0] text-[#F9F7E8] font-bold px-20 py-4 rounded-lg  hover:animate-none hover:bg-[#F9F7E8] hover:text-[#EDA6A0]"
           id="play_game">
           PLAY
         </button>
