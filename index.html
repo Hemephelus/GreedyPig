@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/avatars/avatar_3.png">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -44,13 +44,13 @@
   @apply rounded-full m-[2px];
 }
           .body_normal_state{
-            @apply bg-[#839D9A];
+            @apply bg-[#789692];
           }
           .body_roll_state{
-            @apply bg-[#839D9A];
+            @apply bg-[#97AFAC];
           }
           .body_one_state{
-            @apply bg-[#839D9A];
+            @apply bg-[#E57F76];
           }
           .player_card{
             @apply h-[220px] bg-white rounded-lg overflow-hidden grid grid-rows-[50px_1fr_50px];
@@ -69,22 +69,23 @@
           }
 
           .active-card{
-            @apply flex h-[60px] gap-12 p-4  mx-4 items-center bg-slate-100 rounded-lg shadow-lg shadow-[#789692] scale-[101%];
+            @apply flex h-[60px] gap-12 p-4  mx-4 items-center bg-slate-100 rounded-lg shadow scale-[101%];
           }
-          .winning-l-card{
-            @apply flex h-[40px] gap-4 py-6 px-4  items-center bg-[#EDA6A0] rounded text-slate-100 animate-pulse scale-[105%];
-          }
-          .normarl-l-card{
-            @apply flex h-[40px] gap-4 py-6 px-4  items-center hover:bg-[#839D9A] rounded text-slate-100 border-[1px];
+          
+          .inactive-card{
+            @apply flex h-[60px] gap-12 p-4  mx-4 items-center text-slate-100 rounded-lg shadow border-[1px];
           }
 
           .header-l-card{
             @apply flex justify-center  items-center text-slate-100 ;
           }
-
-          .inactive-card{
-            @apply flex h-[60px] gap-12 p-4  mx-4 items-center hover:bg-[#789692] text-slate-100 rounded-lg shadow-lg shadow-[#789692] border-[1px];
+          
+          .winning-l-card{
+            @apply flex h-[40px] gap-4 py-6 px-4  items-center bg-[#EDA6A0] rounded text-slate-100 scale-[105%];
           }
+          .normarl-l-card{
+            @apply flex h-[40px] gap-4 py-6 px-4  items-center hover:bg-[#839D9A] rounded text-slate-100 border-[1px];
+        }
           .avatar_turn{
             @apply bg-[#789692] hover:bg-[#839D9A]   shadow-lg shadow-[#789692] border-[1px]  w-60 h-60 rounded-lg flex flex-col items-center justify-center;
           }
@@ -92,7 +93,7 @@
   
         
       </style>
-  <title>Document</title>
+  <title>Greedy Pig</title>
 </head>
 
 <body class="h-screen font-myFont body_normal_state">
@@ -191,7 +192,7 @@
   <!-- Main Game section -->
   <div class="main_game hidden h-full" id="game">
     <div class="h-full grid grid-cols-[350px_1fr_350px] ">
-      <aside class="bg-[#789692] h-full border-r-[1px] px-12 flex flex-col justify-center gap-8">
+      <aside class="h-full border-r-[1px] px-12 flex flex-col justify-center gap-8">
 
         <!-- Dice -->
         <p class="text-[#F9F7E8] text-[40px] font-bold  text-center" id="dice_number">1</p>
@@ -212,7 +213,9 @@
             <h2 class="text-[#EDA6A0] text-center text-lg font-semibold">Players</h2>
             <h1 class="text-white text-center text-lg font-semibold">5</h1>
           </div>
-        <div></div>
+        <button
+          class="text-[#EDA6A0] hover:bg-[#E07167] hover:text-[#FAFAFA] text-[18px] font-bold mt-16 px-16 py-2 rounded-lg active:scale-90"
+          id="reset_game">Reset Game</button>
       </aside>
 <!-- Main section -->
       <div>
@@ -236,7 +239,7 @@
       </div>
 
 
-      <aside class="bg-[#789692] border-l-[1px] flex flex-col gap-8 h-full justify-center px-12">
+      <aside class=" border-l-[1px] flex flex-col gap-8 h-full justify-center px-12">
         <div id="player_turn_avatar" class="flex flex-col items-center justify-center text-[20px] font-bold text-slate-100 gap-2">
             <!-- Auto Generated -->
         </div>
@@ -249,36 +252,7 @@
           </div>
 
           <div class="list flex flex-col gap-4">
-
-
-          <div class="winning-l-card">
-            <p class="font-semibold text-[12px]">1</p>
-            <figure class="font-semibold ] w-[10px] flex-1">
-              <img src="./images/avatars/avatar_5.png" alt="" width="40">
-            </figure>
-
-            <h2 class="font-semibold text-[16px] flex-1">Nwachukwu</h2>
-            <p class="font-semibold text-[16px] flex-1">89</p>
-          </div>
-          <div class="normarl-l-card">
-            <p class="font-semibold text-[16px]">2</p>
-            <figure class="font-semibold ] w-[10px] flex-1">
-              <img src="./images/avatars/avatar_6.png" alt="" width="40">
-            </figure>
-
-            <h2 class="font-semibold text-[16px] flex-1">Nwachukwu</h2>
-            <p class="font-semibold text-[16px] flex-1">89</p>
-          </div>
-          <div class="normarl-l-card">
-            <p class="font-semibold text-[16px]">3</p>
-            <figure class="font-semibold ] w-[10px] flex-1">
-              <img src="./images/avatars/avatar_7.png" alt="" width="40">
-            </figure>
-
-            <h2 class="font-semibold text-[16px] flex-1">Nwachukwu</h2>
-            <p class="font-semibold text-[16px] flex-1">89</p>
-          </div>
-
+          <!-- Auto Generated-->
           </div>
           
         </div>
@@ -352,6 +326,20 @@
 
 
 
+    </div>
+  </div>
+
+  <!-- Game Over Page -->
+  <div id="game-over" class="hidden h-full">
+    <div class="flex flex-col gap-12 items-center p-16">
+      <!-- <figure>
+        <img src="./images/noto_trophy.png" alt="" width="200">
+      </figure> -->
+      <figure>
+        <img src="./images/avatars/avatar_1.png" alt="" width="500">
+      </figure>
+
+      <h1 class="cursor-pointer bg-[#EDA6A0] text-[#F9F7E8] text-[30px] font-bold px-12 py-4 rounded-lg  animate-bounce hover:animate-none hover:bg-[#F9F7E8] hover:text-[#EDA6A0] ">Nwachukwu <span>Wins</span></h1>
     </div>
   </div>
   <script src="./game.js"></script>
