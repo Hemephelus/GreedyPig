@@ -24,7 +24,7 @@ class GreedyPig {
     }
 
     checkGameOver () {
-        return Object.values(this.players).some(player => player.score >= this.gameLimit)
+        return Object.values(this.players).find(player => player.score >= this.gameLimit)
     }
 
     getPlayers () {

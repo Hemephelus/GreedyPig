@@ -14,6 +14,8 @@ const playerTurnAvatar = document.querySelector('#player_turn_avatar')
 const gameLimitBox = document.querySelector('.limit_num h1')
 const playerNumBox = document.querySelector('.players_num h1')
 const passDiceBtn = document.querySelector('#pass_dice')
+const resetGameBtn = document.querySelector('#reset_game')
+const gameOverBtn = document.querySelector('#game-over h1')
 const pageBody = document.querySelector('body')
 passDiceBtn.onclick = passDice
 
@@ -32,6 +34,16 @@ const avatars = [
   '/images/avatars/avatar_7.png',
   '/images/avatars/avatar_8.png',
 ]
+
+resetGameBtn.onclick = resetGame
+gameOverBtn.onclick = resetGame
+
+// Reset Game
+function resetGame () {
+  game = null
+  localStorage.removeItem('game-state')
+  navigateTo('#setup')
+}
 
 // Generate unique IDs
 function generateId() {
@@ -177,7 +189,7 @@ function createPlayers() {
     let id = generateId()
     let avatar = tempAvatars.splice(Math.floor(Math.random() * tempAvatars.length), 1)[0]
 
-    let player = { id, avatar, name: '', score: 0, runningScore: 0, }
+    let player = { id, avatar, name: '', score: 0, runningScore: 0, finalScore: 0 }
 
     newPlayers[id] = player
   }
@@ -281,7 +293,8 @@ function passDice() {
   let playerId = game.currentPlayerId
   let player = game.getPlayer(playerId)
   game.modifyPlayer(playerId, {
-    score: player.score + player.runningScore,
+    score: player.score - player.runningScore + player.runningScore,
+    finalScore: player.score + player.runningScore,
     runningScore: 0
   })
 
@@ -321,10 +334,14 @@ function handleUserScore(diceRoll) {
     
   } else {
     // Add Dice roll count to running score
+    console.log('zzz')
+
+    let runningScore = player.runningScore + diceRoll
+    let actualScore = diceRoll + player.score
     
     game.modifyPlayer(playerId, {
-      runningScore: player.runningScore + diceRoll,
-      score: player.score + player.runningScore + diceRoll
+      runningScore: runningScore,
+      score: actualScore
     })
     
     // Change Background Here
@@ -355,6 +372,14 @@ function rollDie() {
 
       handleUserScore(r)
       saveGameState()
+
+      let winner = game.checkGameOver()
+      if (winner) {
+        gameOverBtn.innerHTML = `${winner.name} <span>Wins</span>`
+        setTimeout(() => {
+          navigateTo('#game-over')
+        }, 1000)
+      }
     }
 
     return
