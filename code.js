@@ -14,10 +14,11 @@ const playerTurnAvatar = document.querySelector('#player_turn_avatar')
 const gameLimitBox = document.querySelector('.limit_num h1')
 const playerNumBox = document.querySelector('.players_num h1')
 const passDiceBtn = document.querySelector('#pass_dice')
+const pageBody = document.querySelector('body')
 passDiceBtn.onclick = passDice
 
 let game = null
-const pages = ['#welcome', '#setup', '#game', '#how-to']
+const pages = ['#welcome', '#setup', '#game', '#how-to','#game-over']
 let players = {}
 
 // List of available avatar URLs
@@ -273,6 +274,9 @@ function setupGameScreen() {
 
 // Function to pass the dice to next player
 function passDice() {
+    // Change Background Here
+    pageBody.classList.add('body_normal_state')
+    pageBody.classList.remove('body_one_state')
   // Add running score to player score
   let playerId = game.currentPlayerId
   let player = game.getPlayer(playerId)
@@ -311,14 +315,22 @@ function handleUserScore(diceRoll) {
     passDice()
 
     // Change Background Here
+    pageBody.classList.add('body_one_state')
+    pageBody.classList.remove('body_roll_state')
+    
+    
   } else {
     // Add Dice roll count to running score
+    
     game.modifyPlayer(playerId, {
       runningScore: player.runningScore + diceRoll,
       score: player.score + player.runningScore + diceRoll
     })
-
+    
     // Change Background Here
+    pageBody.classList.add('body_normal_state')
+    pageBody.classList.remove('body_roll_state')
+    pageBody.classList.remove('body_one_state')
   }
 
   showWhoseTurn()
@@ -333,6 +345,9 @@ function rollDie() {
     if (endRoll <= 30) {
       r = Math.floor((Math.random() * 6) + 1)
       endRoll++
+      pageBody.classList.add('body_roll_state')
+      pageBody.classList.remove('body_normal_state')
+      pageBody.classList.remove('body_one_state')
       renderDice(r)
     } else {
       diceFaceImg.innerHTML = `<div class="bg-white cursor-pointer hover:scale-105 active:scale-100 rounded-[30px]"><img src="./images/dice_faces/dice_face_${r}.svg" alt="" width="150"></div>`
