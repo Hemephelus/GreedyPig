@@ -7,13 +7,11 @@ class GreedyPig {
         '/images/avatars/avatar_4.png',
     ]
 
+    currentPlayerId = null
+
     constructor (gameLimit, noOfPlayers) {
         this.gameLimit = gameLimit
         this.noOfPlayers = noOfPlayers
-        // this.players = {
-        //     ...this.players,
-        //     ...this.readFromLocalStorage('players')
-        // }
         this.createPlayers(noOfPlayers)
     }
 
@@ -23,6 +21,10 @@ class GreedyPig {
 
     getPlayers () {
         return Object.values(this.players)
+    }
+
+    getPlayersHashMap () {
+        return this.players
     }
 
     getPlayer (id) {
@@ -49,14 +51,23 @@ class GreedyPig {
 
         this.saveToLocalStorage('players', this.players)
     }
-
+    
     modifyPlayer (id, modifications) {
         this.players[id] = {
             ...this.players[id],
             ...modifications
         }
-
+        
         this.saveToLocalStorage('players', this.players)
+    }
+    
+    start () {
+        this.currentPlayerId = Object.keys(this.players)[0]
+    }
+
+    nextTurn () {      
+        let ids = Object.keys(this.players)
+        this.currentPlayerId = ids[ids.indexOf(this.currentPlayerId) + 1] ? ids[ids.indexOf(this.currentPlayerId) + 1] : ids[0]
     }
 
     saveToLocalStorage (key, obj) {
