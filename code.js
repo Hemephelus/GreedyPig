@@ -16,6 +16,7 @@ const playerNumBox = document.querySelector('.players_num h1')
 const passDiceBtn = document.querySelector('#pass_dice')
 const resetGameBtn = document.querySelector('#reset_game')
 const gameOverBtn = document.querySelector('#game-over h1')
+const gameOverAvatar = document.querySelector('#game-over figure')
 const pageBody = document.querySelector('body')
 passDiceBtn.onclick = passDice
 
@@ -375,6 +376,8 @@ function rollDie() {
 
       let winner = game.checkGameOver()
       if (winner) {
+        gameOverAvatar.innerHTML = `<img src=".${winner.avatar}" alt="" width="300">`
+        console.log(winner)
         gameOverBtn.innerHTML = `${winner.name} <span>Wins</span>`
         setTimeout(() => {
           navigateTo('#game-over')
