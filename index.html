@@ -25,33 +25,39 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap');
   </style>
+
   <style type="text/tailwindcss">
     @layer utilities {
           .welcome {
             @apply h-full;
           }
           
-    ::-webkit-scrollbar {
-  width: 10px;
-    }
+          ::-webkit-scrollbar {
+            width: 10px;
+          }
+
           ::-webkit-scrollbar-thumb {
-  background: #F9F7E8; 
-  @apply rounded-full;
-}
+            background: #F9F7E8; 
+            @apply rounded-full;
+          }
 
           ::-webkit-scrollbar-track {
-  background-color:#839D9A; 
-  @apply rounded-full m-[2px];
-}
+            background-color:#839D9A; 
+            @apply rounded-full m-[2px];
+          } 
+
           .body_normal_state{
             @apply bg-[#789692];
           }
+
           .body_roll_state{
             @apply bg-[#97AFAC];
           }
+
           .body_one_state{
             @apply bg-[#E57F76];
           }
+
           .player_card{
             @apply h-[220px] bg-white rounded-lg overflow-hidden grid grid-rows-[50px_1fr_50px];
           }
@@ -83,16 +89,16 @@
           .winning-l-card{
             @apply flex h-[40px] gap-4 py-6 px-4  items-center bg-[#EDA6A0] rounded text-slate-100 scale-[105%];
           }
+
           .normarl-l-card{
             @apply flex h-[40px] gap-4 py-6 px-4  items-center hover:bg-[#839D9A] rounded text-slate-100 border-[1px];
-        }
+          }
+
           .avatar_turn{
             @apply bg-[#789692] hover:bg-[#839D9A]   shadow-lg shadow-[#789692] border-[1px]  w-60 h-60 rounded-lg flex flex-col items-center justify-center;
           }
 }
-  
-        
-      </style>
+  </style>
   <title>Greedy Pig</title>
 </head>
 
@@ -282,7 +288,6 @@
           <ul class="list-decimal p-4 list-inside">
             <li>Enter the max total point you want to reach. "First person to get to 100"</li>
             <li>Enter the number of players playing</li>
-            <li>Next click on the <b>"Generate Avatar"</b> button</li>
             <li>Enter the player names</li>
             <li>Next click on the <b>"Play"</b> button</li>
           </ul>
@@ -322,6 +327,23 @@
             The first player to score <b>100</b> or more points wins
           </p>
         </div>
+
+        <div class="flex gap-4">
+          <span class="text-[#F9F7E8]">ABOUT</span>
+          <span class="text-[#EDA6A0]">US</span>
+        </div>
+
+        <div class=" w-[700px] bg-white text-[20px] font-normal p-6 rounded-lg flex flex-col gap-6  justify-center">
+          <p class="">
+           The designer of this game is <a href="" class="text-center hover:text-[#789692] hover:font-bold">Oluwatomisin Rhema Eghosa Odukoya</a>.
+          </p>
+          <p class="">
+            The developer of this game is <a href="https://github.com/Hemephelus" target="_blank" class="text-center hover:text-[#789692] hover:font-bold">Nwachukwu Samuel Ujubuonu</a>.
+          </p>
+          <p class="">
+            <a href="https://github.com/myketheguru" target="_blank" class="text-center hover:text-[#789692] hover:font-bold">Micheal Eze</a> assisted in the development of the game.
+          </p>
+        </div>
       </div>
 
 
@@ -337,7 +359,9 @@
       </figure>
 
       <h1 class="cursor-pointer bg-[#EDA6A0] text-[#F9F7E8] text-[30px] font-bold px-12 py-4 rounded-lg  animate-bounce hover:animate-none hover:bg-[#F9F7E8] hover:text-[#EDA6A0] ">The Greedy Pig <span>Wins</span></h1>
+      
     </div>
+    <a class="cursor-pointer text-[#F9F7E8] text-[20px] font-semibold hover:text-[#EDA6A0] fixed bottom-[30px] right-[30px]" href="https://forms.gle/skt5UKYGbDVzu2EL9"  target="_blank">Give your feed here</a>
   </div>
   <script src="./game.js"></script>
   <script src="./code.js"></script>
